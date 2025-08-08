@@ -32,13 +32,13 @@ app.post('/user', (req, res) => {
   users.push(newUser);
 
   res.json({
-    message: `Hoş geldin, ${name}!`,
+    message: `Hoş geldin, ${name}!`, 
     user: newUser,
     total_users: users.length
   });
 });
 
-// Kullanıcı listesini alma
+// Kullanıcı listesini almaa
 app.get('/user', (req, res) => {
   res.json({ users });
 });

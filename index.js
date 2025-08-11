@@ -6,6 +6,7 @@ app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 4000;
+const HOST = '0.0.0.0';
 
 // Basit sağlık kontrolü
 app.get('/health', (req, res) => {
@@ -43,6 +44,6 @@ app.get('/user', (req, res) => {
   res.json({ users });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Demo API listening on port ${PORT}`);
+app.listen(PORT, HOST, () => {
+  console.log(`Demo API listening on http://${HOST}:${PORT}`);
 });

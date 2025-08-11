@@ -1,19 +1,26 @@
+# Küçük ve hızlı: Alpine
 FROM node:20-alpine
 
 WORKDIR /app
 
-# Sadece bağımlılık dosyalarını kopyala
+# Bağımlılıklar
 COPY package*.json ./
+RUN npm ci --only=production
 
-# Prod kurulum (lock yoksa install'a düşer)
-ENV NODE_ENV=production PORT=3000 HOST=0.0.0.0
-RUN npm ci --omit=dev || npm install --omit=dev
-
-# Uygulama kodu
+# Uygulama dosyaları
 COPY . .
 
-# Uygulamanın dinleyeceği port
+# Ortam
+ENV NODE_ENV=production
+ENV PORT=3000
 EXPOSE 3000
 
-# Uygulamayı başlat
+# Healthcheck için curl ekle
+RUN apk add --no-cache curl
+
+# Konteyner içi healthcheck
+HEALTHCHECK --interval=10s --timeout=3s --retries=10 \
+  CMD curl -fsS http://localhost:${PORT}/health || exit 1
+
+# Uygulama başlat
 CMD ["node", "index.js"]

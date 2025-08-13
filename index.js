@@ -10,7 +10,7 @@ const HOST = '0.0.0.0';
 
 // Basit sağlık kontrolü
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', time: new Date().toISOString() });
+  res.json({ status: 'okk', time: new Date().toISOString() });
 });
 
 // Echo endpoint
